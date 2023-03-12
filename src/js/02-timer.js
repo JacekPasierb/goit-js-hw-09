@@ -60,10 +60,10 @@ const options = {
         minutes.textContent = addLeadingZero(objectTime.minutes);
         seconds.textContent = addLeadingZero(objectTime.seconds);
         if (
-          objectTime.days == 00 &&
-          objectTime.hours == 00 &&
-          objectTime.minutes == 00 &&
-          objectTime.seconds == 00
+          objectTime.days === 0 &&
+          objectTime.hours === 0 &&
+          objectTime.minutes === 0 &&
+          objectTime.seconds === 0
         ) {
           clearInterval(timerId);
         }
