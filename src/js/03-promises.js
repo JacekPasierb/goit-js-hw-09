@@ -9,22 +9,22 @@ let timerId = null;
 
 form.addEventListener('submit', e => {
   // deklaracja zmiennych
-  let numDelay = delay.value;
-  let numPromise = amount.value;
-  let numStep = step.value;
+  let numDelay = Number(delay.value);
+  let numPromise = Number(amount.value);
+  let numStep = Number(step.value);
   // deklaracja zmiennych
 
   // utworzenie funkcji
-  function createPromise(position, delay) {
+  function createPromise(position, numDelay) {
     timerId = setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
         Notiflix.Notify.success(
-          `✅ Fulfilled promise ${position} in ${delay}ms`
+          `✅ Fulfilled promise ${position} in ${numDelay}ms`
         ); // Fulfill
       } else {
         Notiflix.Notify.failure(
-          `❌ Rejected promise ${position} in ${delay}ms`
+          `❌ Rejected promise ${position} in ${numDelay}ms`
         ); // Reject
       }
     }, numDelay);
@@ -37,13 +37,11 @@ form.addEventListener('submit', e => {
 
   for (let i = 0; i < numPromise; i++) {
     let position = i;
-    if (i == 0) {
+    
       createPromise(position, numDelay);
-    } else {
-      numDelay = numStep;
-      createPromise(position, numDelay);
-    }
-  }
+    
+      numDelay += numStep;
+  };
 
   form.reset();
 });
