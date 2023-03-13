@@ -16,7 +16,7 @@ form.addEventListener('submit', e => {
 
   // utworzenie funkcji
   function createPromise(position, numDelay) {
-    const promiseMy = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
       timerId = setTimeout(() => {
         const shouldResolve = Math.random() > 0.3;
         if (shouldResolve) {
@@ -26,7 +26,7 @@ form.addEventListener('submit', e => {
         }
       }, numDelay);
     });
-    return promiseMy;
+    return promise;
   }
   // utworzenie funkcji
 
