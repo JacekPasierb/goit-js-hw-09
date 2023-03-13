@@ -16,18 +16,17 @@ form.addEventListener('submit', e => {
 
   // utworzenie funkcji
   function createPromise(position, numDelay) {
-    timerId = setTimeout(() => {
-      const shouldResolve = Math.random() > 0.3;
-      if (shouldResolve) {
-        Notiflix.Notify.success(
-          `✅ Fulfilled promise ${position} in ${numDelay}ms`
-        ); // Fulfill
-      } else {
-        Notiflix.Notify.failure(
-          `❌ Rejected promise ${position} in ${numDelay}ms`
-        ); // Reject
-      }
-    }, numDelay);
+    const promiseMy = new Promise((resolve, reject) => {
+      timerId = setTimeout(() => {
+        const shouldResolve = Math.random() > 0.3;
+        if (shouldResolve) {
+                         resolve({ position, numDelay });
+        } else {
+           reject({ position, numDelay });
+        }
+      }, numDelay);
+    });
+    return promiseMy;
   }
   // utworzenie funkcji
 
@@ -38,8 +37,18 @@ form.addEventListener('submit', e => {
   for (let i = 0; i < numPromise; i++) {
     let position = i;
     
-      createPromise(position, numDelay);
-    
+      createPromise(position, numDelay)
+        .then(({ position, numDelay }) => {
+          
+          Notiflix.Notify.success(
+            `✅ Fulfilled promise ${position} in ${numDelay}ms`
+          );
+        })
+        .catch(({ position, numDelay }) => {
+          Notiflix.Notify.failure(
+            `❌ Rejected promise ${position} in ${numDelay}ms`
+          );
+        });
       numDelay += numStep;
   };
 
